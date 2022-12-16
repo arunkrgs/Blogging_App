@@ -23,4 +23,41 @@ public class PostServiceImpl implements PostService{
         List<Post> posts = postRepository.findAll();// Takes all data from DB Push that into Entity class objects
         return posts.stream().map(PostMapper::mapToPostDto).collect(Collectors.toList());//Here Convert Entity <Post> to <PostDto>
    }
+
+    @Override
+    public void createPost(PostDto postDto) {
+        Post post = PostMapper.mapToPost(postDto);
+        postRepository.save(post);
+    }
+
+    @Override
+    public PostDto findPostById(Long postId) {
+        Post post = postRepository.findById(postId).get();
+        return PostMapper.mapToPostDto(post);
+    }
+
+    @Override
+    public void updatePost(PostDto postDto) {
+        Post post = PostMapper.mapToPost(postDto);
+        postRepository.save(post);
+    }
+
+    @Override
+    public void deletePost(Long postId) {
+        postRepository.deleteById(postId);
+    }
+
+    @Override
+    public PostDto findPostByUrl(String postUrl) {
+        Post post = postRepository.findByUrl(postUrl).get();
+        return PostMapper.mapToPostDto(post);
+    }
+
+    @Override
+    public List<PostDto> searchPosts(String query) {
+        List<Post> posts = postRepository.searchPosts(query);
+        return posts.stream().map(PostMapper::mapToPostDto).collect(Collectors.toList());
+    }
+
+
 }
