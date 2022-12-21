@@ -17,6 +17,7 @@ public class PostMapper {
                     .updatedOn(post.getUpdatedOn())
                     .build();
         }
+
 // map Postdto to Post entity
         public static Post mapToPost(PostDto postDto){
             return Post.builder()
